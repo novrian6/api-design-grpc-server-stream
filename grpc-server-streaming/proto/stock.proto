@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package stock;
+
+option go_package = "proto/stock";
+
+service StockService {
+    // Server streaming RPC: mengirimkan update harga saham secara real-time
+    rpc GetStockUpdates(StockRequest) returns (stream StockResponse);
+}
+
+message StockRequest {
+    string symbol = 1;
+    int32 duration_seconds = 2;
+}
+
+message StockResponse {
+    string symbol = 1;
+    double price = 2;
+    double change = 3;
+    int64 timestamp = 4;
+}
